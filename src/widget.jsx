@@ -8,15 +8,12 @@ export function initWidget(element) {
   let theme;
   try {
     const themeAttr = element.getAttribute("data-theme");
-    // Check if it looks like a JSON object
     if (themeAttr && themeAttr.trim().startsWith("{")) {
       theme = JSON.parse(themeAttr);
     } else {
-      // Treat as string key ("light", "dark")
       throw new Error("Not JSON");
     }
   } catch (e) {
-    // Fallback for backward compatibility or simple string themes
     const themeStr = element.getAttribute("data-theme") || "light";
     theme = themeStr === "dark" ? {
       bgColor: "#1a1a1a",

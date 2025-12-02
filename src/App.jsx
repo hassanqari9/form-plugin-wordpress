@@ -4,7 +4,6 @@ import "./App.css";
 export default function App({ fields = [], theme = {} }) {
   const [formData, setFormData] = useState({});
 
-  // Map theme props to CSS variables
   const style = {
     "--widget-bg": theme.bgColor || "#ffffff",
     "--widget-text": theme.textColor || "#1a1a1a",

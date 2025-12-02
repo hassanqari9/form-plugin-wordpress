@@ -9,7 +9,6 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 
-  /* Dynamic Theme Variables */
   background: var(--widget-bg);
   color: var(--widget-text);
   border: 1px solid var(--widget-border);
@@ -31,35 +30,33 @@
 }
 
 .form-label {
-  display: none; /* Hide labels as requested */
+  display: none;
 }
 
 .form-input {
   width: 100%;
   padding: 14px 16px;
-  border-radius: 0; /* Sharp borders */
-  border: 1px solid var(--field-border); /* Light border */
+  border-radius: 0;
+  border: 1px solid var(--field-border);
   font-size: 15px;
   font-family: inherit;
   transition: all 0.3s ease;
   box-sizing: border-box;
   background: var(--field-bg);
   color: var(--widget-text);
-  -webkit-appearance: none; /* Remove default styling for selects */
+  -webkit-appearance: none;
   appearance: none;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #333; /* Darker border on focus */
+  border-color: #333;
 }
 
 .form-input::placeholder {
   opacity: 1;
-  color: #999999; /* Light grey placeholder */
+  color: #999999;
 }
-
-/* Style for select placeholder */
 select.form-input {
   color: var(--widget-text);
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999999%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
@@ -69,7 +66,6 @@ select.form-input {
   padding-right: 40px;
 }
 
-/* Placeholder color for select when value is empty */
 select.form-input:invalid,
 select.form-input option[value=""] {
   color: #999999;
@@ -80,7 +76,6 @@ select.form-input option[value=""] {
   resize: vertical;
 }
 
-/* Radio and Checkbox Styling */
 .form-group-container {
   margin-bottom: 8px;
 }
@@ -109,10 +104,9 @@ select.form-input option[value=""] {
 }
 
 .radio-option input, .checkbox-option input, .checkbox-single input {
-  display: none; /* Hide default input */
+  display: none;
 }
 
-/* Custom Radio */
 .radio-custom {
   width: 18px;
   height: 18px;
@@ -145,12 +139,11 @@ select.form-input option[value=""] {
   transform: scale(1);
 }
 
-/* Custom Checkbox */
 .checkbox-custom {
   width: 18px;
   height: 18px;
   border: 1px solid var(--field-border);
-  border-radius: 2px; /* Slight radius for checkbox */
+  border-radius: 2px;
   position: relative;
   display: flex;
   align-items: center;
@@ -168,7 +161,7 @@ select.form-input option[value=""] {
   content: '';
   width: 5px;
   height: 9px;
-  border: solid #fff; /* Checkmark color */
+  border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg) scale(0);
   opacity: 0;
@@ -182,7 +175,6 @@ select.form-input option[value=""] {
   transform: rotate(45deg) scale(1);
 }
 
-/* Privacy Checkbox Specifics */
 .privacy-checkbox {
   margin-bottom: 24px;
 }
@@ -205,10 +197,9 @@ select.form-input option[value=""] {
   accent-color: var(--button-bg);
 }
 
-/* Button */
 .button-container {
   display: flex;
-  justify-content: center; /* Center the button */
+  justify-content: center;
 }
 
 .form-button {
@@ -236,7 +227,6 @@ select.form-input option[value=""] {
   transform: translateY(0);
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
   .form-widget {
     padding: 24px;
@@ -244,15 +234,15 @@ select.form-input option[value=""] {
   }
 
   .form-grid {
-    grid-template-columns: 1fr; /* Stack on mobile */
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
   .form-input {
-    font-size: 16px; /* Prevents zoom on iOS */
+    font-size: 16px;
   }
 
   .form-button {
-    width: 100%; /* Full width button on mobile */
+    width: 100%;
   }
 }
