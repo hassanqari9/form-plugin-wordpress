@@ -1,0 +1,79 @@
+REACT FORM WIDGET WORKFLOW
+==========================
+
+1. INITIAL SETUP
+----------------
+- Install Node.js (if not installed)
+- Open terminal in project folder
+- Run: npm install
+
+2. LOCAL DEVELOPMENT
+--------------------
+- Run: npm run dev
+- Open http://localhost:5173
+- Edit src/App.jsx or src/App.css to make changes
+- Changes reflect immediately in browser
+
+3. CONFIGURING THE FORM
+-----------------------
+The form is configured via HTML attributes on the container div:
+
+A. Fields Configuration (data-fields)
+   Pass a JSON array of field objects:
+   [
+     {"type": "text", "label": "Full Name"},
+     {"type": "email", "label": "Email"},
+     {"type": "phone", "label": "Phone"},
+     {"type": "select", "label": "Service", "options": ["A", "B"]},
+     {"type": "radio", "label": "Contact Method", "options": ["Email", "Phone"]},
+     {"type": "checkbox", "label": "Interests", "options": ["Web", "SEO"]},
+     {"type": "textarea", "label": "Message"}
+   ]
+
+B. Theme Configuration (data-theme)
+   Pass "light", "dark", or a JSON object:
+   {
+     "bgColor": "#ffffff",        // Widget background
+     "fieldBg": "#f8f9fa",        // Input background
+     "buttonColor": "#000000",    // Button background
+     "textColor": "#333333",      // Text color
+     "fieldBorderColor": "#ddd"   // Input border color
+   }
+
+4. BUILDING FOR PRODUCTION
+--------------------------
+- Run: npm run build
+- This creates a 'dist' folder containing:
+  - widget.js
+  - widget.css
+
+5. WORDPRESS INTEGRATION
+------------------------
+A. Upload Files
+   - Go to WordPress Dashboard > Media > Add New
+   - Upload 'dist/widget.js' and 'dist/widget.css'
+   - Copy the File URLs
+
+B. Embed in Page
+   - Edit any Page/Post/Widget
+   - Add a "Custom HTML" block
+   - Paste the following code (update URLs):
+
+   <!-- 1. Load CSS -->
+   <link rel="stylesheet" href="YOUR_WIDGET_CSS_URL">
+
+   <!-- 2. Container -->
+   <div
+     class="my-react-form-widget"
+     data-theme='{"bgColor": "#fff", "buttonColor": "#000"}'
+     data-fields='[{"type": "text", "label": "Name"}]'
+   ></div>
+
+   <!-- 3. Load JS -->
+   <script src="YOUR_WIDGET_JS_URL"></script>
+
+6. TROUBLESHOOTING
+------------------
+- If styles look wrong: Check if 'widget.css' is loaded correctly
+- If form doesn't appear: Check browser console for errors
+- If JSON error: Ensure data-fields uses double quotes for keys/values

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Form Widget - Demo</title>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .demo-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        color: white;
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .widget-demo {
+        margin-bottom: 40px;
+      }
+
+      .demo-title {
+        color: white;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-container">
+      <h1>🎨 React Form Widget Demo</h1>
+
+      <div
+        id="react-contact-widget"
+        class="my-react-form-widget"
+        data-theme='{
+          "bgColor": "#000000",
+          "fieldBg": "#f3f3f3",
+          "buttonColor": "#FF650C",
+          "textColor": "#333333"
+        }'
+        data-fields='[
+    {"type":"text","label":"Full Name"},
+    {"type":"email","label":"Email"},
+    {"type": "radio", "label": "Preferred Contact Method", "options": ["Email", "Phone", "WhatsApp"]},
+          {"type": "checkbox", "label": "Areas of Interest", "options": ["Web Design", "Development", "SEO", "Marketing"]},
+    {"type":"textarea","label":"Message"}
+  ]'
+      ></div>
+
+      <br />
+      <div
+        id="react-contact-widget"
+        class="my-react-form-widget"
+        data-theme='{
+          "bgColor": "#ffffff",
+          "fieldBg": "#f3f3f3",
+          "buttonColor": "#000000",
+          "textColor": "#333333"
+        }'
+        data-fields='[
+          {"type": "text", "label": "Full Name"},
+          {"type": "text", "label": "Company Name"},
+          {"type": "email", "label": "Business Email"},
+          {"type": "select", "label": "Service Type", "options": ["Web Development", "UI/UX Design", "SEO Optimization", "Digital Marketing"]},
+          {"type": "select", "label": "What We Provide", "options": ["Development", "Design", "SEO", "Digital"]},
+          {"type": "textarea", "label": "Project Description"}
+        ]'
+      ></div>
+      <br />
+      <div
+        id="react-contact-widget"
+        class="my-react-form-widget"
+        data-theme='{
+          "bgColor": "#ffffff",
+          "fieldBg": "#f8f9fa",
+          "buttonColor": "#": "#FF650C",
+          "textColor": "#2d3436",
+          "fieldBorderColor": "#dfe6e9"
+        }'
+        data-fields='[
+          {"type": "text", "label": "Full Name"},
+          {"type": "text", "label": "Last Name"},
+          {"type": "radio", "label": "Preferred Contact Method", "options": ["Email", "Phone", "WhatsApp"]},
+          {"type": "checkbox", "label": "Areas of Interest", "options": ["Web Design", "Development", "SEO", "Marketing"]},
+          {"type": "textarea", "label": "Additional Comments"}
+        ]'
+      ></div>
+    </div>
+
+    <script type="module" src="/src/index.jsx"></script>
+  </body>
+</html>
