@@ -3,7 +3,7 @@ import "./App.css";
 
 export default function App({ fields = [], theme = {} }) {
   const [formData, setFormData] = useState({});
-  
+
   const style = {
     "--widget-bg": theme.bgColor || "#ffffff",
     "--widget-text": theme.textColor || "#1a1a1a",
@@ -23,6 +23,29 @@ export default function App({ fields = [], theme = {} }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate dynamic fields
+    for (const field of fields) {
+      const value = formData[field.label];
+
+      if (field.required) {
+        if (!value || (Array.isArray(value) && value.length === 0)) {
+          return;
+        }
+      }
+
+      if (value) {
+        if (field.type === "email") {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) return;
+        }
+        if (field.type === "phone") {
+          const phoneRegex = /^[\d\+\-\(\)\s]{7,}$/;
+          if (!phoneRegex.test(value)) return;
+        }
+      }
+    }
+
     console.log("Form submitted:", formData);
     alert("Form submitted! Check console for data.");
   };
@@ -50,6 +73,7 @@ export default function App({ fields = [], theme = {} }) {
           type="phone"
           placeholder={`Phone*`}
           required
+          pattern="^\+?\d+$"
           onChange={(e) => handleChange("Phone", e.target.value)}
         />
         <input
@@ -62,137 +86,141 @@ export default function App({ fields = [], theme = {} }) {
       </div>
 
       <div className="form-grid">
-        {fields.map((field, i) => (
-          <div
-            key={i}
-            className={`form-field ${
-              field.type === "textarea" ? "full-width" : ""
-            }`}
-          >
-            {field.type === "text" && (
-              <input
-                className="form-input"
-                type="text"
-                placeholder={`${field.label}*`}
-                required
-                onChange={(e) => handleChange(field.label, e.target.value)}
-              />
-            )}
-            {field.type === "email" && (
-              <input
-                className="form-input"
-                type="email"
-                placeholder={`${field.label}*`}
-                required
-                onChange={(e) => handleChange(field.label, e.target.value)}
-              />
-            )}
-            {field.type === "phone" && (
-              <input
-                className="form-input"
-                type="tel"
-                placeholder={`${field.label}*`}
-                required
-                onChange={(e) => handleChange(field.label, e.target.value)}
-              />
-            )}
-            {field.type === "select" && (
-              <select
-                className="form-input"
-                onChange={(e) => handleChange(field.label, e.target.value)}
-                required
-                defaultValue=""
-                style={{ color: formData[field.label] ? "inherit" : "#999999" }}
-              >
-                <option value="" disabled hidden>
-                  {field.label}*
-                </option>
-                {field.options?.map((opt, idx) => (
-                  <option
-                    key={idx}
-                    value={opt}
-                    style={{ color: "var(--widget-text)" }}
-                  >
-                    {opt}
+        {fields.map((field, i) => {
+          const isRequired = field.required === true;
+          const labelText = `${field.label}${isRequired ? "*" : ""}`;
+
+          return (
+            <div
+              key={i}
+              className={`form-field ${
+                field.type === "textarea" ? "full-width" : ""
+              }`}
+            >
+              {field.type === "text" && (
+                <input
+                  className="form-input"
+                  type="text"
+                  placeholder={labelText}
+                  required={isRequired}
+                  onChange={(e) => handleChange(field.label, e.target.value)}
+                />
+              )}
+              {field.type === "email" && (
+                <input
+                  className="form-input"
+                  type="email"
+                  placeholder={labelText}
+                  required={isRequired}
+                  onChange={(e) => handleChange(field.label, e.target.value)}
+                />
+              )}
+              {field.type === "phone" && (
+                <input
+                  className="form-input"
+                  type="tel"
+                  placeholder={labelText}
+                  required={isRequired}
+                  onChange={(e) => handleChange(field.label, e.target.value)}
+                />
+              )}
+              {field.type === "select" && (
+                <select
+                  className="form-input"
+                  onChange={(e) => handleChange(field.label, e.target.value)}
+                  required={isRequired}
+                  defaultValue=""
+                  style={{ color: formData[field.label] ? "inherit" : "#999999" }}
+                >
+                  <option value="" disabled hidden>
+                    {labelText}
                   </option>
-                ))}
-              </select>
-            )}
-            {field.type === "radio" && (
-              <div className="form-group-container">
-                <label className="form-group-label">{field.label}*</label>
-                <div className="radio-group">
                   {field.options?.map((opt, idx) => (
-                    <label key={idx} className="radio-option">
+                    <option
+                      key={idx}
+                      value={opt}
+                      style={{ color: "var(--widget-text)" }}
+                    >
+                      {opt}
+                    </option>
+                  ))}
+                </select>
+              )}
+              {field.type === "radio" && (
+                <div className="form-group-container">
+                  <label className="form-group-label">{labelText}</label>
+                  <div className="radio-group">
+                    {field.options?.map((opt, idx) => (
+                      <label key={idx} className="radio-option">
+                        <input
+                          type="radio"
+                          value={opt}
+                          required={isRequired}
+                          onChange={(e) =>
+                            handleChange(field.label, e.target.value)
+                          }
+                        />
+                        <span className="radio-custom"></span>
+                        <span className="radio-label">{opt}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {field.type === "checkbox" && (
+                <div className="form-group-container">
+                  {field.options ? (
+                    <>
+                      <label className="form-group-label">{labelText}</label>
+                      <div className="checkbox-group">
+                        {field.options.map((opt, idx) => (
+                          <label key={idx} className="checkbox-option">
+                            <input
+                              type="checkbox"
+                              value={opt}
+                              onChange={(e) => {
+                                const current = formData[field.label] || [];
+                                const updated = e.target.checked
+                                  ? [...current, opt]
+                                  : current.filter((item) => item !== opt);
+                                handleChange(field.label, updated);
+                              }}
+                            />
+                            <span className="checkbox-custom"></span>
+                            <span className="checkbox-label">{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <label className="checkbox-single">
                       <input
-                        type="radio"
-                        name={field.label}
-                        value={opt}
-                        required
+                        type="checkbox"
+                        required={isRequired}
                         onChange={(e) =>
-                          handleChange(field.label, e.target.value)
+                          handleChange(
+                            field.label,
+                            e.target.checked ? "Yes" : "No"
+                          )
                         }
                       />
-                      <span className="radio-custom"></span>
-                      <span className="radio-label">{opt}</span>
+                      <span className="checkbox-custom"></span>
+                      <span className="checkbox-label">{labelText}</span>
                     </label>
-                  ))}
+                  )}
                 </div>
-              </div>
-            )}
-            {field.type === "checkbox" && (
-              <div className="form-group-container">
-                {field.options ? (
-                  <>
-                    <label className="form-group-label">{field.label}*</label>
-                    <div className="checkbox-group">
-                      {field.options.map((opt, idx) => (
-                        <label key={idx} className="checkbox-option">
-                          <input
-                            type="checkbox"
-                            value={opt}
-                            onChange={(e) => {
-                              const current = formData[field.label] || [];
-                              const updated = e.target.checked
-                                ? [...current, opt]
-                                : current.filter((item) => item !== opt);
-                              handleChange(field.label, updated);
-                            }}
-                          />
-                          <span className="checkbox-custom"></span>
-                          <span className="checkbox-label">{opt}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <label className="checkbox-single">
-                    <input
-                      type="checkbox"
-                      required
-                      onChange={(e) =>
-                        handleChange(
-                          field.label,
-                          e.target.checked ? "Yes" : "No"
-                        )
-                      }
-                    />
-                    <span className="checkbox-custom"></span>
-                    <span className="checkbox-label">{field.label}*</span>
-                  </label>
-                )}
-              </div>
-            )}
-            {field.type === "textarea" && (
-              <textarea
-                className="form-input form-textarea"
-                placeholder={`${field.label}*`}
-                required
-                onChange={(e) => handleChange(field.label, e.target.value)}
-              />
-            )}
-          </div>
-        ))}
+              )}
+              {field.type === "textarea" && (
+                <textarea
+                  className="form-input form-textarea"
+                  placeholder={labelText}
+                  required={isRequired}
+                  onChange={(e) => handleChange(field.label, e.target.value)}
+                />
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* default fields */}

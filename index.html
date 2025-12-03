@@ -52,8 +52,9 @@
           "textColor": "#ffffff"
         }'
         data-fields='[
-          {"type": "radio", "label": "Preferred Contact Method", "options": ["Email", "Phone", "WhatsApp"]},
-          {"type": "checkbox", "label": "Areas of Interest", "options": ["Web Design", "Development", "SEO", "Marketing"]}
+          {"type": "radio", "label": "Preferred Contact Method", "options": ["Email", "Phone", "WhatsApp"], "required": true},
+          {"type": "checkbox", "label": "Areas of Interest", "options": ["Web Design", "Development", "SEO", "Marketing"], "required": false},
+          {"type": "text", "label": "Optional Note", "required": false}
         ]'
       ></div>
 
@@ -68,8 +69,8 @@
           "textColor": "#333333"
         }'
         data-fields='[
-          {"type": "email", "label": "Business Email"},
-          {"type": "select", "label": "Service Type", "options": ["Web Development", "UI/UX Design", "SEO Optimization", "Digital Marketing"]},
+          {"type": "email", "label": "Business Email", "required": true},
+          {"type": "select", "label": "Service Type", "options": ["Web Development", "UI/UX Design", "SEO Optimization", "Digital Marketing"], "required": true},
           {"type": "select", "label": "What We Provide", "options": ["Development", "Design", "SEO", "Digital"]}
         ]'
       ></div>
