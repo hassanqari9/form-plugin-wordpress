@@ -4,7 +4,6 @@ A beautiful, dynamic React form widget that can be embedded anywhere in WordPres
 
 ## ✨ Features
 
-- ✅ **No Plugin Required** - Just upload 2 files (JS + CSS)
 - ✅ **Fully Dynamic** - Configure fields via HTML attributes
 - ✅ **Dark & Light Themes** - Beautiful design for both modes
 - ✅ **Multiple Field Types** - Text, email, phone, textarea, select
