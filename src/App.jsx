@@ -3,7 +3,7 @@ import "./App.css";
 
 export default function App({ fields = [], theme = {} }) {
   const [formData, setFormData] = useState({});
-
+  
   const style = {
     "--widget-bg": theme.bgColor || "#ffffff",
     "--widget-text": theme.textColor || "#1a1a1a",
@@ -28,16 +28,46 @@ export default function App({ fields = [], theme = {} }) {
   };
 
   return (
-    <form
-      className="form-widget"
-      style={style}
-      onSubmit={handleSubmit}
-    >
+    <form className="form-widget" style={style} onSubmit={handleSubmit}>
+      {/* default fields */}
+      <div className="form-grid">
+        <input
+          className="form-input"
+          type="text"
+          placeholder={`Full Name*`}
+          required
+          onChange={(e) => handleChange("Full Name", e.target.value)}
+        />
+        <input
+          className="form-input"
+          type="email"
+          placeholder={`Email*`}
+          required
+          onChange={(e) => handleChange("Email", e.target.value)}
+        />
+        <input
+          className="form-input"
+          type="phone"
+          placeholder={`Phone*`}
+          required
+          onChange={(e) => handleChange("Phone", e.target.value)}
+        />
+        <input
+          className="form-input"
+          type="company"
+          placeholder={`Company Name*`}
+          required
+          onChange={(e) => handleChange("Company Name", e.target.value)}
+        />
+      </div>
+
       <div className="form-grid">
         {fields.map((field, i) => (
           <div
             key={i}
-            className={`form-field ${field.type === 'textarea' ? 'full-width' : ''}`}
+            className={`form-field ${
+              field.type === "textarea" ? "full-width" : ""
+            }`}
           >
             {field.type === "text" && (
               <input
@@ -48,7 +78,6 @@ export default function App({ fields = [], theme = {} }) {
                 onChange={(e) => handleChange(field.label, e.target.value)}
               />
             )}
-
             {field.type === "email" && (
               <input
                 className="form-input"
@@ -58,7 +87,6 @@ export default function App({ fields = [], theme = {} }) {
                 onChange={(e) => handleChange(field.label, e.target.value)}
               />
             )}
-
             {field.type === "phone" && (
               <input
                 className="form-input"
@@ -68,33 +96,28 @@ export default function App({ fields = [], theme = {} }) {
                 onChange={(e) => handleChange(field.label, e.target.value)}
               />
             )}
-
-            {field.type === "textarea" && (
-              <textarea
-                className="form-input form-textarea"
-                placeholder={`${field.label}*`}
-                required
-                onChange={(e) => handleChange(field.label, e.target.value)}
-              />
-            )}
-
             {field.type === "select" && (
               <select
                 className="form-input"
                 onChange={(e) => handleChange(field.label, e.target.value)}
                 required
                 defaultValue=""
-                style={{ color: formData[field.label] ? 'inherit' : '#999999' }}
+                style={{ color: formData[field.label] ? "inherit" : "#999999" }}
               >
-                <option value="" disabled hidden>{field.label}*</option>
+                <option value="" disabled hidden>
+                  {field.label}*
+                </option>
                 {field.options?.map((opt, idx) => (
-                  <option key={idx} value={opt} style={{ color: 'var(--widget-text)' }}>
+                  <option
+                    key={idx}
+                    value={opt}
+                    style={{ color: "var(--widget-text)" }}
+                  >
                     {opt}
                   </option>
                 ))}
               </select>
             )}
-
             {field.type === "radio" && (
               <div className="form-group-container">
                 <label className="form-group-label">{field.label}*</label>
@@ -106,7 +129,9 @@ export default function App({ fields = [], theme = {} }) {
                         name={field.label}
                         value={opt}
                         required
-                        onChange={(e) => handleChange(field.label, e.target.value)}
+                        onChange={(e) =>
+                          handleChange(field.label, e.target.value)
+                        }
                       />
                       <span className="radio-custom"></span>
                       <span className="radio-label">{opt}</span>
@@ -115,7 +140,6 @@ export default function App({ fields = [], theme = {} }) {
                 </div>
               </div>
             )}
-
             {field.type === "checkbox" && (
               <div className="form-group-container">
                 {field.options ? (
@@ -131,7 +155,7 @@ export default function App({ fields = [], theme = {} }) {
                               const current = formData[field.label] || [];
                               const updated = e.target.checked
                                 ? [...current, opt]
-                                : current.filter(item => item !== opt);
+                                : current.filter((item) => item !== opt);
                               handleChange(field.label, updated);
                             }}
                           />
@@ -146,7 +170,12 @@ export default function App({ fields = [], theme = {} }) {
                     <input
                       type="checkbox"
                       required
-                      onChange={(e) => handleChange(field.label, e.target.checked ? "Yes" : "No")}
+                      onChange={(e) =>
+                        handleChange(
+                          field.label,
+                          e.target.checked ? "Yes" : "No"
+                        )
+                      }
                     />
                     <span className="checkbox-custom"></span>
                     <span className="checkbox-label">{field.label}*</span>
@@ -154,24 +183,39 @@ export default function App({ fields = [], theme = {} }) {
                 )}
               </div>
             )}
+            {field.type === "textarea" && (
+              <textarea
+                className="form-input form-textarea"
+                placeholder={`${field.label}*`}
+                required
+                onChange={(e) => handleChange(field.label, e.target.value)}
+              />
+            )}
           </div>
         ))}
       </div>
+
+      {/* default fields */}
+      <textarea
+        className="form-input form-textarea"
+        placeholder={`Message*`}
+        required
+        onChange={(e) => handleChange("Message", e.target.value)}
+      />
 
       <div className="privacy-checkbox">
         <label className="privacy-label">
           <input type="checkbox" required />
           <span>
-            I have read the privacy statement and understand that my personal data will be processed for the purpose of providing the necessary information and assistance.*
+            I have read the privacy statement and understand that my personal
+            data will be processed for the purpose of providing the necessary
+            information and assistance.*
           </span>
         </label>
       </div>
 
       <div className="button-container">
-        <button
-          className="form-button"
-          type="submit"
-        >
+        <button className="form-button" type="submit">
           Submit
         </button>
       </div>
