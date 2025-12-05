@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: "wp-content/plugins/react-contact-widget/dist",
+    outDir: "wp-content/plugins/react-form-widget/dist",
     emptyOutDir: true,
     rollupOptions: {
       input: "./src/index.jsx",

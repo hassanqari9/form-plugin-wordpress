@@ -47,6 +47,7 @@
   color: var(--widget-text);
   -webkit-appearance: none;
   appearance: none;
+  color: var(--widget-field-text);
 }
 
 .form-input:focus {
@@ -56,7 +57,7 @@
 
 .form-input::placeholder {
   opacity: 1;
-  color: #999999;
+  color: var(--widget-field-text);
 }
 select.form-input {
   color: var(--widget-text);
@@ -69,12 +70,13 @@ select.form-input {
 
 select.form-input:invalid,
 select.form-input option[value=""] {
-  color: #999999;
+  color: var(--widget-field-text);
 }
 
 .form-textarea {
   min-height: 150px;
   resize: vertical;
+  color: var(--widget-field-text);
 }
 
 .form-group-container {
@@ -86,7 +88,7 @@ select.form-input option[value=""] {
   margin-bottom: 12px;
   font-size: 14px;
   font-weight: 500;
-  color: #999999;
+  color: var(--widget-text);
 }
 
 .radio-group, .checkbox-group {

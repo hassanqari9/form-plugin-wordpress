@@ -3,7 +3,7 @@
 A beautiful, dynamic React form widget that can be embedded anywhere in WordPress without a plugin.
 
 ## ✨ Features
-- ✅ **Simple Upload** - Just upload react-contact-widget.zip file in plugins
+- ✅ **Simple Upload** - Just upload react-form-widget.zip file in plugins
 - ✅ **Fully Dynamic** - Configure fields via HTML attributes
 - ✅ **Dark & Light Themes** - Beautiful design for both modes
 - ✅ **Multiple Field Types** - Text, email, phone, textarea, select

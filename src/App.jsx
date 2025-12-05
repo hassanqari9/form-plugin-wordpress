@@ -7,6 +7,7 @@ export default function App({ fields = [], theme = {} }) {
   const style = {
     "--widget-bg": theme.bgColor || "#ffffff",
     "--widget-text": theme.textColor || "#1a1a1a",
+    "--widget-field-text": theme.fieldTextColor || "#1a1a1a",
     "--widget-border": theme.borderColor || "rgba(0,0,0,0.1)",
     "--field-bg": theme.fieldBg || "#ffffff",
     "--field-border": theme.fieldBorderColor || theme.borderColor || "#e0e0e0",
@@ -154,11 +155,18 @@ export default function App({ fields = [], theme = {} }) {
                       <label key={idx} className="radio-option">
                         <input
                           type="radio"
+                          name={field.label}
                           value={opt}
-                          required={isRequired}
-                          onChange={(e) =>
-                            handleChange(field.label, e.target.value)
-                          }
+                          checked={formData[field.label] === opt}
+                          required={isRequired && !formData[field.label]}
+                          onClick={(e) => {
+                            if (formData[field.label] === opt) {
+                              handleChange(field.label, "");
+                            } else {
+                              handleChange(field.label, opt);
+                            }
+                          }}
+                          onChange={() => {}}
                         />
                         <span className="radio-custom"></span>
                         <span className="radio-label">{opt}</span>
