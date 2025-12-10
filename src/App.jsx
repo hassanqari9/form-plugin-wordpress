@@ -239,6 +239,14 @@ export default function App({ fields = [], theme = {} }) {
         onChange={(e) => handleChange("Message", e.target.value)}
       />
 
+      <input
+        type="file"
+        className=""
+        placeholder={`Upload file*`}
+        required
+        onChange={(e) => handleChange("File", e.target.value)}
+      />
+
       <div className="privacy-checkbox">
         <label className="privacy-label">
           <input type="checkbox" required />
