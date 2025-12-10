@@ -24,7 +24,7 @@ export default function App({ fields = [], theme = {} }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+                               
     // Validate dynamic fields
     for (const field of fields) {
       const value = formData[field.label];
